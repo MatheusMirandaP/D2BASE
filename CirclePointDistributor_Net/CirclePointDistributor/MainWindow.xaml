@@ -1,0 +1,422 @@
+<Window x:Class="CirclePointDistributor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CirclePointDistributor"
+        mc:Ignorable="d"
+        Title="D2BASE" Height="700" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        Background="#F1F5F9"
+        FontFamily="Segoe UI"
+        Icon="pack://application:,,,/Resources/icon.png">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="PrimaryColorCanvas" Color="#0284c7"/>
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#0284c7"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#0369a1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#64748b"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="BorderBrush" Value="#cbd5e1"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="6" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#f1f5f9"/>
+                                <Setter Property="Foreground" Value="#0f172a"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="16"/>
+            <Setter Property="Padding" Value="30"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" Opacity="0.1" BlurRadius="20" ShadowDepth="5"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="HeaderTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#0284c7"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+
+        <Style x:Key="SubHeaderTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#64748b"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,0,30"/>
+        </Style>
+
+        <Style x:Key="InputLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#64748b"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
+
+        <Style x:Key="InputTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="BorderBrush" Value="#e2e8f0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="6">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#0284c7"/>
+                                <Setter TargetName="border" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Background="White" BorderBrush="#e2e8f0" BorderThickness="0,0,0,1" Padding="5">
+            <MenuItem Header="_Arquivo">
+                <MenuItem Header="_Novo" Click="New_Click"/>
+                <MenuItem Header="_Abrir..." Click="Open_Click"/>
+                <Separator/>
+                <MenuItem Header="_Salvar" Click="Save_Click"/>
+                <MenuItem Header="Salvar _Como..." Click="SaveAs_Click"/>
+                <Separator/>
+                <MenuItem Header="Sai_r" Click="Exit_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Border Style="{StaticResource CardStyle}" Width="900" MinHeight="500">
+                <Grid>
+                    <!-- Welcome View -->
+                    <Grid x:Name="WelcomeView" Visibility="Visible">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Button x:Name="StartBtn" Content="Iniciar Novo Projeto" Click="StartBtn_Click" Style="{StaticResource PrimaryButtonStyle}" FontSize="16" Padding="30,15"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Config View -->
+                    <Grid x:Name="ConfigView" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0">
+                            <TextBlock Text="Configuração do Projeto" Style="{StaticResource HeaderTextStyle}"/>
+                            <TextBlock Text="Defina os parâmetros do seu círculo" Style="{StaticResource SubHeaderTextStyle}"/>
+                        </StackPanel>
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="300"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Controls -->
+                            <StackPanel Grid.Column="0" Margin="0,0,20,0">
+                                <TextBlock Text="Número de Camadas" Style="{StaticResource InputLabelStyle}"/>
+                                <TextBox x:Name="LayersCountInput" Text="1" Style="{StaticResource InputTextBoxStyle}" TextChanged="LayersCountInput_TextChanged"/>
+
+                                <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="300">
+                                    <StackPanel x:Name="LayersContainer"/>
+                                </ScrollViewer>
+
+                                <Button x:Name="GoToChoiceBtn" Content="Próximo" Click="GoToChoiceBtn_Click" Style="{StaticResource PrimaryButtonStyle}" Margin="0,10,0,0"/>
+                            </StackPanel>
+
+                            <!-- Preview -->
+                            <Grid Grid.Column="1">
+                                <Canvas x:Name="PreviewCanvas" Background="Transparent" SizeChanged="Canvas_SizeChanged"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+
+                    <!-- Choice View -->
+                    <Grid x:Name="ChoiceView" Visibility="Collapsed">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="400">
+                            <TextBlock Text="Tipo de Entrada de Carga" Style="{StaticResource HeaderTextStyle}" Margin="0,0,0,30"/>
+                            <Button x:Name="EnterActionsBtn" Content="Entrar com ações" Click="EnterActionsBtn_Click" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,0,15" Padding="20,15"/>
+                            <Button x:Name="WindDataBtn" Content="Dados do vento" Click="WindDataBtn_Click" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,0,15" Padding="20,15"/>
+                            <Button x:Name="BackFromChoiceBtn" Content="Voltar" Click="BackFromChoiceBtn_Click" Style="{StaticResource SecondaryButtonStyle}" Margin="0,20,0,0"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Wind Input View -->
+                    <Grid x:Name="WindInputView" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0">
+                            <TextBlock Text="Parâmetros do Vento" Style="{StaticResource HeaderTextStyle}"/>
+                            <TextBlock Text="Insira os coeficientes para o cálculo do vento" Style="{StaticResource SubHeaderTextStyle}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Width="500" HorizontalAlignment="Center">
+                            <TextBlock Text="Altura do reservatório (h) (m)" Style="{StaticResource InputLabelStyle}"/>
+                            <TextBox x:Name="WindHInput" Style="{StaticResource InputTextBoxStyle}"/>
+
+                            <TextBlock Text="S1" Style="{StaticResource InputLabelStyle}"/>
+                            <TextBox x:Name="WindS1Input" Text="1,0" Style="{StaticResource InputTextBoxStyle}"/>
+
+                            <TextBlock Text="S2" Style="{StaticResource InputLabelStyle}"/>
+                            <TextBox x:Name="WindS2Input" Text="1,0" Style="{StaticResource InputTextBoxStyle}"/>
+
+                            <TextBlock Text="S3" Style="{StaticResource InputLabelStyle}"/>
+                            <TextBox x:Name="WindS3Input" Text="1,0" Style="{StaticResource InputTextBoxStyle}"/>
+
+                            <TextBlock Text="Velocidade Básica (V0) (m/s)" Style="{StaticResource InputLabelStyle}"/>
+                            <TextBox x:Name="WindV0Input" Style="{StaticResource InputTextBoxStyle}"/>
+
+                            <TextBlock Text="Coeficiente de Arrasto (Ca)" Style="{StaticResource InputLabelStyle}"/>
+                            <TextBox x:Name="WindCaInput" Style="{StaticResource InputTextBoxStyle}"/>
+
+                            <Grid Margin="0,10,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="15"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" x:Name="BackToChoiceBtn" Content="Voltar" Click="BackToChoiceBtn_Click" Style="{StaticResource SecondaryButtonStyle}"/>
+                                <Button Grid.Column="2" x:Name="CalculateWindBtn" Content="Calcular Vento" Click="CalculateWindBtn_Click" Style="{StaticResource PrimaryButtonStyle}"/>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Wind Result View -->
+                    <Grid x:Name="WindResultView" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0">
+                            <TextBlock Text="Resultados do Vento" Style="{StaticResource HeaderTextStyle}"/>
+                            <TextBlock Text="Valores calculados com base nos dados fornecidos" Style="{StaticResource SubHeaderTextStyle}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Width="500" HorizontalAlignment="Center">
+                            <Border Background="#f8fafc" BorderBrush="#e2e8f0" BorderThickness="1" CornerRadius="8" Padding="20" Margin="0,0,0,20">
+                                <StackPanel>
+                                    <Grid Margin="0,0,0,10">
+                                        <TextBlock Text="Vk (Velocidade Característica):" FontWeight="SemiBold" Foreground="#64748b"/>
+                                        <TextBlock x:Name="VkResultText" Text="0.00 m/s" HorizontalAlignment="Right" FontWeight="Bold" Foreground="#0284c7"/>
+                                    </Grid>
+                                    <Grid Margin="0,0,0,10">
+                                        <TextBlock Text="q (Pressão Dinâmica):" FontWeight="SemiBold" Foreground="#64748b"/>
+                                        <TextBlock x:Name="QResultText" Text="0.00 N/m²" HorizontalAlignment="Right" FontWeight="Bold" Foreground="#0284c7"/>
+                                    </Grid>
+                                    <Grid Margin="0,0,0,10">
+                                        <TextBlock Text="Fa (Força de Arraste):" FontWeight="SemiBold" Foreground="#64748b"/>
+                                        <TextBlock x:Name="FaResultText" Text="0.00 tf" HorizontalAlignment="Right" FontWeight="Bold" Foreground="#0284c7"/>
+                                    </Grid>
+                                    <Grid>
+                                        <TextBlock Text="M (Momento na Base):" FontWeight="SemiBold" Foreground="#64748b"/>
+                                        <TextBlock x:Name="MResultText" Text="0.00 tf.m" HorizontalAlignment="Right" FontWeight="Bold" Foreground="#0284c7"/>
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+
+                            <Grid Margin="0,10,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="15"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" x:Name="BackToWindInputBtn" Content="Voltar" Click="BackToWindInputBtn_Click" Style="{StaticResource SecondaryButtonStyle}"/>
+                                <Button Grid.Column="2" x:Name="UseWindCalculationsBtn" Content="Usar valores calculados" Click="UseWindCalculationsBtn_Click" Style="{StaticResource PrimaryButtonStyle}"/>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Load Data View -->
+                    <Grid x:Name="LoadDataView" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0">
+                            <TextBlock Text="Definições de Carga" Style="{StaticResource HeaderTextStyle}"/>
+                            <TextBlock Text="Insira as cargas do reservatório e do bloco" Style="{StaticResource SubHeaderTextStyle}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Width="500" HorizontalAlignment="Center">
+                            <TextBlock Text="Peso do Reservatório (tf)" Style="{StaticResource InputLabelStyle}"/>
+                            <TextBox x:Name="PesoReservatorioInput" Style="{StaticResource InputTextBoxStyle}"/>
+
+                            <TextBlock Text="Volume do Reservatório (tf)" Style="{StaticResource InputLabelStyle}"/>
+                            <TextBox x:Name="VolumeReservatorioInput" Style="{StaticResource InputTextBoxStyle}"/>
+
+                            <TextBlock Text="Peso do Bloco (tf)" Style="{StaticResource InputLabelStyle}"/>
+                            <TextBox x:Name="PesoBlocoInput" Style="{StaticResource InputTextBoxStyle}"/>
+
+                            <TextBlock Text="Momento na Base (tf.m)" Style="{StaticResource InputLabelStyle}"/>
+                            <TextBox x:Name="MomentoBaseInput" Style="{StaticResource InputTextBoxStyle}"/>
+
+                            <TextBlock Text="Força Horizontal (tf)" Style="{StaticResource InputLabelStyle}"/>
+                            <TextBox x:Name="ForcaHorizontalInput" Style="{StaticResource InputTextBoxStyle}"/>
+
+                            <CheckBox x:Name="ConsiderPbCheckbox" Content="Considerar Peso do Bloco para Nmín" Margin="0,0,0,20" Foreground="#0f172a" FontSize="14">
+                                <CheckBox.LayoutTransform>
+                                    <ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
+                                </CheckBox.LayoutTransform>
+                            </CheckBox>
+
+                            <Grid Margin="0,10,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="15"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" x:Name="BackToConfigBtn" Content="Voltar" Click="BackToConfigBtn_Click" Style="{StaticResource SecondaryButtonStyle}"/>
+                                <Button Grid.Column="2" x:Name="CalculateBtn" Content="Calcular Resultados" Click="CalculateBtn_Click" Style="{StaticResource PrimaryButtonStyle}"/>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Results View -->
+                    <Grid x:Name="ResultsView" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0">
+                            <TextBlock Text="Resultados do Cálculo" Style="{StaticResource HeaderTextStyle}"/>
+                            <TextBlock Text="Análise da distribuição de forças" Style="{StaticResource SubHeaderTextStyle}"/>
+                        </StackPanel>
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="400"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Results Canvas -->
+                            <Grid Grid.Column="0" Margin="0,0,20,0">
+                                <Canvas x:Name="ResultsCanvas" Background="Transparent" SizeChanged="Canvas_SizeChanged" MouseMove="ResultsCanvas_MouseMove" MouseLeave="ResultsCanvas_MouseLeave"/>
+                                <!-- Tooltip Helper -->
+                                <Popup x:Name="GraphTooltip" Placement="Mouse" AllowsTransparency="True" IsHitTestVisible="False">
+                                    <Border Background="White" BorderBrush="#0284c7" BorderThickness="1" CornerRadius="6" Padding="10">
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.1"/>
+                                        </Border.Effect>
+                                        <TextBlock x:Name="TooltipText" Foreground="#0f172a"/>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+
+                            <!-- Results Table -->
+                            <DataGrid Grid.Column="1" x:Name="ResultsGrid" AutoGenerateColumns="False" IsReadOnly="True" 
+                                      HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                                      Background="White" BorderBrush="#e2e8f0" BorderThickness="1">
+                                <DataGrid.Resources>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="Background" Value="#e0f2fe"/>
+                                        <Setter Property="Foreground" Value="#0284c7"/>
+                                        <Setter Property="Padding" Value="10,8"/>
+                                        <Setter Property="FontWeight" Value="SemiBold"/>
+                                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                        <Setter Property="BorderBrush" Value="#cbd5e1"/>
+                                    </Style>
+                                    <Style TargetType="DataGridCell">
+                                        <Setter Property="Padding" Value="10,8"/>
+                                        <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="DataGridCell">
+                                                    <Border BorderBrush="Transparent" BorderThickness="0" Background="Transparent" SnapsToDevicePixels="True">
+                                                        <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                    <Style TargetType="DataGridRow">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#f0f9ff"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGrid.Resources>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Ponto" Binding="{Binding Id}" Width="Auto"/>
+                                    <DataGridTextColumn Header="X (m)" Binding="{Binding RealX, StringFormat=F3}" Width="*"/>
+                                    <DataGridTextColumn Header="Y (m)" Binding="{Binding RealY, StringFormat=F3}" Width="*"/>
+                                    <DataGridTextColumn Header="Nmáx (tf)" Binding="{Binding Nmax, StringFormat=F3}" Width="*" FontWeight="Bold"/>
+                                    <DataGridTextColumn Header="Nmín (tf)" Binding="{Binding Nmin, StringFormat=F3}" Width="*" FontWeight="Bold"/>
+                                    <DataGridTextColumn Header="H (tf)" Binding="{Binding H, StringFormat=F3}" Width="*" FontWeight="Bold"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+
+                        <Grid Grid.Row="2" Margin="0,20,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="15"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" x:Name="BackToLoadsBtn" Content="Voltar para Cargas" Click="BackToLoadsBtn_Click" Style="{StaticResource SecondaryButtonStyle}"/>
+                            <Button Grid.Column="2" x:Name="RestartBtn" Content="Reiniciar" Click="RestartBtn_Click" Style="{StaticResource PrimaryButtonStyle}"/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+    </DockPanel>
+</Window>

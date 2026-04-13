@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/D2BASE/CirclePointDistributor.csproj" />
+  <Project Path="src/Installer/CirclePointDistributorInstaller.csproj" />
+</Solution>

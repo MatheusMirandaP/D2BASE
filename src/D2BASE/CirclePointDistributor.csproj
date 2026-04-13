@@ -6,17 +6,16 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <AssemblyName>D2BASEInstaller</AssemblyName>
-    <Title>D2BASE Installer</Title>
-    <Product>D2BASE Installer</Product>
+    <AssemblyName>D2BASE</AssemblyName>
+    <Title>D2BASE</Title>
+    <Product>D2BASE</Product>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <Resource Include="Resources\icon.png" />
-  </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\D2BASE.exe" />
+    <Resource Include="Resources\icon.png" />
+    <Resource Include="Resources\icon.ico" />
+    <Resource Include="Resources\MapaVentos.png" />
   </ItemGroup>
 
 </Project>

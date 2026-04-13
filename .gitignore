@@ -13,3 +13,5 @@ obj/
 
 # Legacy files
 old/
+*.exe
+

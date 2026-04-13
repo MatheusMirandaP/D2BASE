@@ -1,4 +1,4 @@
-<Window x:Class="CirclePointDistributorInstaller.MainWindow"
+﻿<Window x:Class="CirclePointDistributorInstaller.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -50,7 +50,7 @@
                 <TextBox x:Name="InstallPathTxt" Height="30" VerticalContentAlignment="Center" Padding="5,0"/>
                 <Button Grid.Column="1" Content="..." Width="40" Margin="10,0,0,0" Click="BrowseBtn_Click" Style="{StaticResource ModernButtonStyle}"/>
             </Grid>
-            
+
             <Button x:Name="InstallBtn" Content="Instalar Aplicativo" HorizontalAlignment="Right" Click="InstallBtn_Click" Style="{StaticResource ModernButtonStyle}"/>
 
             <StackPanel x:Name="ProgressPanel" Visibility="Collapsed" Margin="0,20,0,0">

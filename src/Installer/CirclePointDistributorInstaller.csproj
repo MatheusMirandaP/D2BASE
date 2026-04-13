@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -6,15 +6,17 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <AssemblyName>D2BASE</AssemblyName>
-    <Title>D2BASE</Title>
-    <Product>D2BASE</Product>
-    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+    <AssemblyName>D2BASEInstaller</AssemblyName>
+    <Title>D2BASE Installer</Title>
+    <Product>D2BASE Installer</Product>
   </PropertyGroup>
-
+  
   <ItemGroup>
     <Resource Include="Resources\icon.png" />
-    <Resource Include="Resources\icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\D2BASE.exe" />
   </ItemGroup>
 
 </Project>

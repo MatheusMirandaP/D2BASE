@@ -135,9 +135,10 @@
             </MenuItem>
         </Menu>
 
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Border Style="{StaticResource CardStyle}" Width="900" MinHeight="500">
-                <Grid>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
+                <Border Style="{StaticResource CardStyle}" Width="900" MinHeight="500">
+                    <Grid>
                     <!-- Welcome View -->
                     <Grid x:Name="WelcomeView" Visibility="Visible">
                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -208,19 +209,90 @@
                             <TextBlock Text="Altura do reservatório (h) (m)" Style="{StaticResource InputLabelStyle}"/>
                             <TextBox x:Name="WindHInput" Style="{StaticResource InputTextBoxStyle}"/>
 
-                            <TextBlock Text="S1" Style="{StaticResource InputLabelStyle}"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="S1" Style="{StaticResource InputLabelStyle}" Margin="0"/>
+                                <ToggleButton x:Name="BtnHelpS1" Content=" ⍰ " Background="Transparent" BorderThickness="0" Foreground="#0284c7" Cursor="Hand" FontSize="14" FontWeight="Bold" Margin="5,0,0,0" Padding="0"/>
+                                <Popup IsOpen="{Binding IsChecked, ElementName=BtnHelpS1}" StaysOpen="False" PlacementTarget="{Binding ElementName=BtnHelpS1}" Placement="Right">
+                                    <Border Background="White" BorderBrush="#0284c7" BorderThickness="1" Padding="10" CornerRadius="4" MaxWidth="300">
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="5" ShadowDepth="2" Opacity="0.2"/>
+                                        </Border.Effect>
+                                        <TextBlock TextWrapping="Wrap" Foreground="#0f172a">
+                                            <Run FontWeight="Bold" Text="S1: "/>
+                                            <Run Text="Fator topográfico. Considera as variações do relevo do terreno. (Ver NBR 6123)"/>
+                                        </TextBlock>
+                                    </Border>
+                                </Popup>
+                            </StackPanel>
                             <TextBox x:Name="WindS1Input" Text="1,0" Style="{StaticResource InputTextBoxStyle}"/>
 
-                            <TextBlock Text="S2" Style="{StaticResource InputLabelStyle}"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="S2" Style="{StaticResource InputLabelStyle}" Margin="0"/>
+                                <ToggleButton x:Name="BtnHelpS2" Content=" ⍰ " Background="Transparent" BorderThickness="0" Foreground="#0284c7" Cursor="Hand" FontSize="14" FontWeight="Bold" Margin="5,0,0,0" Padding="0"/>
+                                <Popup IsOpen="{Binding IsChecked, ElementName=BtnHelpS2}" StaysOpen="False" PlacementTarget="{Binding ElementName=BtnHelpS2}" Placement="Right">
+                                    <Border Background="White" BorderBrush="#0284c7" BorderThickness="1" Padding="10" CornerRadius="4" MaxWidth="300">
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="5" ShadowDepth="2" Opacity="0.2"/>
+                                        </Border.Effect>
+                                        <TextBlock TextWrapping="Wrap" Foreground="#0f172a">
+                                            <Run FontWeight="Bold" Text="S2: "/>
+                                            <Run Text="Fator que considera a influência da rugosidade do terreno, das dimensões da edificação, estrutura ou componente em estudo, e de sua altura sobre o terreno. (Ver NBR 6123)"/>
+                                        </TextBlock>
+                                    </Border>
+                                </Popup>
+                            </StackPanel>
                             <TextBox x:Name="WindS2Input" Text="1,0" Style="{StaticResource InputTextBoxStyle}"/>
 
-                            <TextBlock Text="S3" Style="{StaticResource InputLabelStyle}"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="S3" Style="{StaticResource InputLabelStyle}" Margin="0"/>
+                                <ToggleButton x:Name="BtnHelpS3" Content=" ⍰ " Background="Transparent" BorderThickness="0" Foreground="#0284c7" Cursor="Hand" FontSize="14" FontWeight="Bold" Margin="5,0,0,0" Padding="0"/>
+                                <Popup IsOpen="{Binding IsChecked, ElementName=BtnHelpS3}" StaysOpen="False" PlacementTarget="{Binding ElementName=BtnHelpS3}" Placement="Right">
+                                    <Border Background="White" BorderBrush="#0284c7" BorderThickness="1" Padding="10" CornerRadius="4" MaxWidth="300">
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="5" ShadowDepth="2" Opacity="0.2"/>
+                                        </Border.Effect>
+                                        <TextBlock TextWrapping="Wrap" Foreground="#0f172a">
+                                            <Run FontWeight="Bold" Text="S3: "/>
+                                            <Run Text="Fator baseado em conceitos probabilísticos. Considera o grau de segurança requerido e a vida útil da edificação, estrutura ou componente. (Ver NBR 6123)"/>
+                                        </TextBlock>
+                                    </Border>
+                                </Popup>
+                            </StackPanel>
                             <TextBox x:Name="WindS3Input" Text="1,0" Style="{StaticResource InputTextBoxStyle}"/>
 
-                            <TextBlock Text="Velocidade Básica (V0) (m/s)" Style="{StaticResource InputLabelStyle}"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Velocidade Básica (V0) (m/s)" Style="{StaticResource InputLabelStyle}" Margin="0"/>
+                                <ToggleButton x:Name="BtnHelpV0" Content=" ⍰ " Background="Transparent" BorderThickness="0" Foreground="#0284c7" Cursor="Hand" FontSize="14" FontWeight="Bold" Margin="5,0,0,0" Padding="0"/>
+                                <Popup IsOpen="{Binding IsChecked, ElementName=BtnHelpV0}" StaysOpen="False" PlacementTarget="{Binding ElementName=BtnHelpV0}" Placement="Right">
+                                    <Border Background="White" BorderBrush="#0284c7" BorderThickness="1" Padding="10" CornerRadius="4" MaxWidth="600">
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="5" ShadowDepth="2" Opacity="0.2"/>
+                                        </Border.Effect>
+                                        <StackPanel>
+                                            <TextBlock FontWeight="Bold" Foreground="#0f172a" Margin="0,0,0,5" Text="Isopletas de velocidade básica do vento no Brasil (NBR 6123):"/>
+                                            <Image Source="pack://application:,,,/Resources/MapaVentos.png" Stretch="Uniform" MaxHeight="350" MaxWidth="500"/>
+                                            <TextBlock Foreground="#64748b" FontSize="11" TextAlignment="Center" Margin="0,5,0,0" Text="Valores em m/s"/>
+                                        </StackPanel>
+                                    </Border>
+                                </Popup>
+                            </StackPanel>
                             <TextBox x:Name="WindV0Input" Style="{StaticResource InputTextBoxStyle}"/>
 
-                            <TextBlock Text="Coeficiente de Arrasto (Ca)" Style="{StaticResource InputLabelStyle}"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Coeficiente de Arrasto (Ca)" Style="{StaticResource InputLabelStyle}" Margin="0"/>
+                                <ToggleButton x:Name="BtnHelpCa" Content=" ⍰ " Background="Transparent" BorderThickness="0" Foreground="#0284c7" Cursor="Hand" FontSize="14" FontWeight="Bold" Margin="5,0,0,0" Padding="0"/>
+                                <Popup IsOpen="{Binding IsChecked, ElementName=BtnHelpCa}" StaysOpen="False" PlacementTarget="{Binding ElementName=BtnHelpCa}" Placement="Right">
+                                    <Border Background="White" BorderBrush="#0284c7" BorderThickness="1" Padding="10" CornerRadius="4" MaxWidth="300">
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="5" ShadowDepth="2" Opacity="0.2"/>
+                                        </Border.Effect>
+                                        <TextBlock TextWrapping="Wrap" Foreground="#0f172a">
+                                            <Run FontWeight="Bold" Text="Ca: "/>
+                                            <Run Text="Número adimensional que quantifica a resistência de um objeto ao vento. Varia com a forma, geometria e tipo de turbulência. (Ver NBR 6123)"/>
+                                        </TextBlock>
+                                    </Border>
+                                </Popup>
+                            </StackPanel>
                             <TextBox x:Name="WindCaInput" Style="{StaticResource InputTextBoxStyle}"/>
 
                             <Grid Margin="0,10,0,0">
@@ -376,6 +448,7 @@
                                     <Style TargetType="DataGridCell">
                                         <Setter Property="Padding" Value="10,8"/>
                                         <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                                        <Setter Property="Foreground" Value="#0f172a"/>
                                         <Setter Property="Template">
                                             <Setter.Value>
                                                 <ControlTemplate TargetType="DataGridCell">
@@ -391,6 +464,10 @@
                                             <Trigger Property="IsMouseOver" Value="True">
                                                 <Setter Property="Background" Value="#f0f9ff"/>
                                             </Trigger>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Background" Value="#e0f2fe"/>
+                                                <Setter Property="Foreground" Value="#0f172a"/>
+                                            </Trigger>
                                         </Style.Triggers>
                                     </Style>
                                 </DataGrid.Resources>
@@ -398,9 +475,23 @@
                                     <DataGridTextColumn Header="Ponto" Binding="{Binding Id}" Width="Auto"/>
                                     <DataGridTextColumn Header="X (m)" Binding="{Binding RealX, StringFormat=F3}" Width="*"/>
                                     <DataGridTextColumn Header="Y (m)" Binding="{Binding RealY, StringFormat=F3}" Width="*"/>
-                                    <DataGridTextColumn Header="Nmáx (tf)" Binding="{Binding Nmax, StringFormat=F3}" Width="*" FontWeight="Bold"/>
-                                    <DataGridTextColumn Header="Nmín (tf)" Binding="{Binding Nmin, StringFormat=F3}" Width="*" FontWeight="Bold"/>
-                                    <DataGridTextColumn Header="H (tf)" Binding="{Binding H, StringFormat=F3}" Width="*" FontWeight="Bold"/>
+                                    <DataGridTextColumn Header="Nmáx (tf)" Binding="{Binding Nmax, StringFormat=F3}" Width="*">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="FontWeight" Value="{Binding NmaxFontWeight}"/>
+                                                <Setter Property="TextAlignment" Value="Center"/>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Nmín (tf)" Binding="{Binding Nmin, StringFormat=F3}" Width="*">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="FontWeight" Value="{Binding NminFontWeight}"/>
+                                                <Setter Property="TextAlignment" Value="Center"/>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="H (tf)" Binding="{Binding H, StringFormat=F3}" Width="*"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
@@ -418,5 +509,6 @@
                 </Grid>
             </Border>
         </Grid>
+        </ScrollViewer>
     </DockPanel>
 </Window>

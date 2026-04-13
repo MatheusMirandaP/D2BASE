@@ -1,4 +1,4 @@
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Markup;
 using System.Globalization;
 using System.Threading;
@@ -51,3 +51,4 @@ public partial class App : Application
         base.OnStartup(e);
     }
 }
+

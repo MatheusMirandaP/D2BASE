@@ -7,14 +7,14 @@
         mc:Ignorable="d"
         Title="D2BASE" Height="700" Width="1000"
         WindowStartupLocation="CenterScreen"
-        Background="#F1F5F9"
+        Background="#F4F4F5"
         FontFamily="Segoe UI"
         Icon="pack://application:,,,/Resources/icon.png">
 
     <Window.Resources>
-        <SolidColorBrush x:Key="PrimaryColorCanvas" Color="#0284c7"/>
+        <SolidColorBrush x:Key="PrimaryColorCanvas" Color="#27272A"/>
         <Style x:Key="PrimaryButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#0284c7"/>
+            <Setter Property="Background" Value="#27272A"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Padding" Value="15,8"/>
@@ -28,7 +28,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#0369a1"/>
+                                <Setter Property="Background" Value="#18181B"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -55,7 +55,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#f1f5f9"/>
+                                <Setter Property="Background" Value="#F4F4F5"/>
                                 <Setter Property="Foreground" Value="#0f172a"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -78,7 +78,7 @@
         <Style x:Key="HeaderTextStyle" TargetType="TextBlock">
             <Setter Property="FontSize" Value="24"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Foreground" Value="#0284c7"/>
+            <Setter Property="Foreground" Value="#27272A"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="Margin" Value="0,0,0,10"/>
         </Style>
@@ -111,7 +111,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsFocused" Value="True">
-                                <Setter TargetName="border" Property="BorderBrush" Value="#0284c7"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#27272A"/>
                                 <Setter TargetName="border" Property="BorderThickness" Value="2"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -139,8 +139,28 @@
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
                 <Border Style="{StaticResource CardStyle}" Width="900" MinHeight="500">
                     <Grid>
+                    <!-- Login View -->
+                    <Grid x:Name="LoginView" Visibility="Visible">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="400">
+                            <TextBlock Text="Acesso D2BASE" Style="{StaticResource HeaderTextStyle}" Margin="0,0,0,10"/>
+                            <TextBlock Text="Autenticação administrativa" Style="{StaticResource SubHeaderTextStyle}"/>
+                            
+                            <TextBlock Text="E-mail" Style="{StaticResource InputLabelStyle}"/>
+                            <TextBox x:Name="LoginEmailInput" Style="{StaticResource InputTextBoxStyle}"/>
+                            
+                            <TextBlock Text="Senha" Style="{StaticResource InputLabelStyle}"/>
+                            <Border BorderBrush="#e2e8f0" BorderThickness="1" CornerRadius="6" Margin="0,0,0,5" Background="White">
+                                <PasswordBox x:Name="LoginPasswordInput" Padding="10" BorderThickness="0" Background="Transparent" FontSize="14"/>
+                            </Border>
+                            
+                            <TextBlock x:Name="LoginErrorText" Text="Erro de autenticação" Foreground="#ef4444" FontSize="13" Margin="0,0,0,15" TextWrapping="Wrap" HorizontalAlignment="Center" Visibility="Collapsed"/>
+                            
+                            <Button x:Name="LoginBtn" Content="Entrar no Sistema" Click="LoginBtn_Click" Style="{StaticResource PrimaryButtonStyle}" FontSize="16" Padding="20,12" Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </Grid>
+
                     <!-- Welcome View -->
-                    <Grid x:Name="WelcomeView" Visibility="Visible">
+                    <Grid x:Name="WelcomeView" Visibility="Collapsed">
                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                             <Button x:Name="StartBtn" Content="Iniciar Novo Projeto" Click="StartBtn_Click" Style="{StaticResource PrimaryButtonStyle}" FontSize="16" Padding="30,15"/>
                         </StackPanel>
@@ -211,9 +231,9 @@
 
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                                 <TextBlock Text="S1" Style="{StaticResource InputLabelStyle}" Margin="0"/>
-                                <ToggleButton x:Name="BtnHelpS1" Content=" ⍰ " Background="Transparent" BorderThickness="0" Foreground="#0284c7" Cursor="Hand" FontSize="14" FontWeight="Bold" Margin="5,0,0,0" Padding="0"/>
+                                <ToggleButton x:Name="BtnHelpS1" Content=" ⍰ " Background="Transparent" BorderThickness="0" Foreground="#27272A" Cursor="Hand" FontSize="14" FontWeight="Bold" Margin="5,0,0,0" Padding="0"/>
                                 <Popup IsOpen="{Binding IsChecked, ElementName=BtnHelpS1}" StaysOpen="False" PlacementTarget="{Binding ElementName=BtnHelpS1}" Placement="Right">
-                                    <Border Background="White" BorderBrush="#0284c7" BorderThickness="1" Padding="10" CornerRadius="4" MaxWidth="300">
+                                    <Border Background="White" BorderBrush="#27272A" BorderThickness="1" Padding="10" CornerRadius="4" MaxWidth="300">
                                         <Border.Effect>
                                             <DropShadowEffect BlurRadius="5" ShadowDepth="2" Opacity="0.2"/>
                                         </Border.Effect>
@@ -228,9 +248,9 @@
 
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                                 <TextBlock Text="S2" Style="{StaticResource InputLabelStyle}" Margin="0"/>
-                                <ToggleButton x:Name="BtnHelpS2" Content=" ⍰ " Background="Transparent" BorderThickness="0" Foreground="#0284c7" Cursor="Hand" FontSize="14" FontWeight="Bold" Margin="5,0,0,0" Padding="0"/>
+                                <ToggleButton x:Name="BtnHelpS2" Content=" ⍰ " Background="Transparent" BorderThickness="0" Foreground="#27272A" Cursor="Hand" FontSize="14" FontWeight="Bold" Margin="5,0,0,0" Padding="0"/>
                                 <Popup IsOpen="{Binding IsChecked, ElementName=BtnHelpS2}" StaysOpen="False" PlacementTarget="{Binding ElementName=BtnHelpS2}" Placement="Right">
-                                    <Border Background="White" BorderBrush="#0284c7" BorderThickness="1" Padding="10" CornerRadius="4" MaxWidth="300">
+                                    <Border Background="White" BorderBrush="#27272A" BorderThickness="1" Padding="10" CornerRadius="4" MaxWidth="300">
                                         <Border.Effect>
                                             <DropShadowEffect BlurRadius="5" ShadowDepth="2" Opacity="0.2"/>
                                         </Border.Effect>
@@ -245,9 +265,9 @@
 
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                                 <TextBlock Text="S3" Style="{StaticResource InputLabelStyle}" Margin="0"/>
-                                <ToggleButton x:Name="BtnHelpS3" Content=" ⍰ " Background="Transparent" BorderThickness="0" Foreground="#0284c7" Cursor="Hand" FontSize="14" FontWeight="Bold" Margin="5,0,0,0" Padding="0"/>
+                                <ToggleButton x:Name="BtnHelpS3" Content=" ⍰ " Background="Transparent" BorderThickness="0" Foreground="#27272A" Cursor="Hand" FontSize="14" FontWeight="Bold" Margin="5,0,0,0" Padding="0"/>
                                 <Popup IsOpen="{Binding IsChecked, ElementName=BtnHelpS3}" StaysOpen="False" PlacementTarget="{Binding ElementName=BtnHelpS3}" Placement="Right">
-                                    <Border Background="White" BorderBrush="#0284c7" BorderThickness="1" Padding="10" CornerRadius="4" MaxWidth="300">
+                                    <Border Background="White" BorderBrush="#27272A" BorderThickness="1" Padding="10" CornerRadius="4" MaxWidth="300">
                                         <Border.Effect>
                                             <DropShadowEffect BlurRadius="5" ShadowDepth="2" Opacity="0.2"/>
                                         </Border.Effect>
@@ -262,9 +282,9 @@
 
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                                 <TextBlock Text="Velocidade Básica (V0) (m/s)" Style="{StaticResource InputLabelStyle}" Margin="0"/>
-                                <ToggleButton x:Name="BtnHelpV0" Content=" ⍰ " Background="Transparent" BorderThickness="0" Foreground="#0284c7" Cursor="Hand" FontSize="14" FontWeight="Bold" Margin="5,0,0,0" Padding="0"/>
+                                <ToggleButton x:Name="BtnHelpV0" Content=" ⍰ " Background="Transparent" BorderThickness="0" Foreground="#27272A" Cursor="Hand" FontSize="14" FontWeight="Bold" Margin="5,0,0,0" Padding="0"/>
                                 <Popup IsOpen="{Binding IsChecked, ElementName=BtnHelpV0}" StaysOpen="False" PlacementTarget="{Binding ElementName=BtnHelpV0}" Placement="Right">
-                                    <Border Background="White" BorderBrush="#0284c7" BorderThickness="1" Padding="10" CornerRadius="4" MaxWidth="600">
+                                    <Border Background="White" BorderBrush="#27272A" BorderThickness="1" Padding="10" CornerRadius="4" MaxWidth="600">
                                         <Border.Effect>
                                             <DropShadowEffect BlurRadius="5" ShadowDepth="2" Opacity="0.2"/>
                                         </Border.Effect>
@@ -280,9 +300,9 @@
 
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                                 <TextBlock Text="Coeficiente de Arrasto (Ca)" Style="{StaticResource InputLabelStyle}" Margin="0"/>
-                                <ToggleButton x:Name="BtnHelpCa" Content=" ⍰ " Background="Transparent" BorderThickness="0" Foreground="#0284c7" Cursor="Hand" FontSize="14" FontWeight="Bold" Margin="5,0,0,0" Padding="0"/>
+                                <ToggleButton x:Name="BtnHelpCa" Content=" ⍰ " Background="Transparent" BorderThickness="0" Foreground="#27272A" Cursor="Hand" FontSize="14" FontWeight="Bold" Margin="5,0,0,0" Padding="0"/>
                                 <Popup IsOpen="{Binding IsChecked, ElementName=BtnHelpCa}" StaysOpen="False" PlacementTarget="{Binding ElementName=BtnHelpCa}" Placement="Right">
-                                    <Border Background="White" BorderBrush="#0284c7" BorderThickness="1" Padding="10" CornerRadius="4" MaxWidth="300">
+                                    <Border Background="White" BorderBrush="#27272A" BorderThickness="1" Padding="10" CornerRadius="4" MaxWidth="300">
                                         <Border.Effect>
                                             <DropShadowEffect BlurRadius="5" ShadowDepth="2" Opacity="0.2"/>
                                         </Border.Effect>
@@ -320,23 +340,23 @@
                         </StackPanel>
 
                         <StackPanel Grid.Row="1" Width="500" HorizontalAlignment="Center">
-                            <Border Background="#f8fafc" BorderBrush="#e2e8f0" BorderThickness="1" CornerRadius="8" Padding="20" Margin="0,0,0,20">
+                            <Border Background="#FAFAFA" BorderBrush="#e2e8f0" BorderThickness="1" CornerRadius="8" Padding="20" Margin="0,0,0,20">
                                 <StackPanel>
                                     <Grid Margin="0,0,0,10">
                                         <TextBlock Text="Vk (Velocidade Característica):" FontWeight="SemiBold" Foreground="#64748b"/>
-                                        <TextBlock x:Name="VkResultText" Text="0.00 m/s" HorizontalAlignment="Right" FontWeight="Bold" Foreground="#0284c7"/>
+                                        <TextBlock x:Name="VkResultText" Text="0.00 m/s" HorizontalAlignment="Right" FontWeight="Bold" Foreground="#27272A"/>
                                     </Grid>
                                     <Grid Margin="0,0,0,10">
                                         <TextBlock Text="q (Pressão Dinâmica):" FontWeight="SemiBold" Foreground="#64748b"/>
-                                        <TextBlock x:Name="QResultText" Text="0.00 N/m²" HorizontalAlignment="Right" FontWeight="Bold" Foreground="#0284c7"/>
+                                        <TextBlock x:Name="QResultText" Text="0.00 N/m²" HorizontalAlignment="Right" FontWeight="Bold" Foreground="#27272A"/>
                                     </Grid>
                                     <Grid Margin="0,0,0,10">
                                         <TextBlock Text="Fa (Força de Arraste):" FontWeight="SemiBold" Foreground="#64748b"/>
-                                        <TextBlock x:Name="FaResultText" Text="0.00 tf" HorizontalAlignment="Right" FontWeight="Bold" Foreground="#0284c7"/>
+                                        <TextBlock x:Name="FaResultText" Text="0.00 tf" HorizontalAlignment="Right" FontWeight="Bold" Foreground="#27272A"/>
                                     </Grid>
                                     <Grid>
                                         <TextBlock Text="M (Momento na Base):" FontWeight="SemiBold" Foreground="#64748b"/>
-                                        <TextBlock x:Name="MResultText" Text="0.00 tf.m" HorizontalAlignment="Right" FontWeight="Bold" Foreground="#0284c7"/>
+                                        <TextBlock x:Name="MResultText" Text="0.00 tf.m" HorizontalAlignment="Right" FontWeight="Bold" Foreground="#27272A"/>
                                     </Grid>
                                 </StackPanel>
                             </Border>
@@ -423,7 +443,7 @@
                                 <Canvas x:Name="ResultsCanvas" Background="Transparent" SizeChanged="Canvas_SizeChanged" MouseMove="ResultsCanvas_MouseMove" MouseLeave="ResultsCanvas_MouseLeave"/>
                                 <!-- Tooltip Helper -->
                                 <Popup x:Name="GraphTooltip" Placement="Mouse" AllowsTransparency="True" IsHitTestVisible="False">
-                                    <Border Background="White" BorderBrush="#0284c7" BorderThickness="1" CornerRadius="6" Padding="10">
+                                    <Border Background="White" BorderBrush="#27272A" BorderThickness="1" CornerRadius="6" Padding="10">
                                         <Border.Effect>
                                             <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.1"/>
                                         </Border.Effect>
@@ -438,8 +458,8 @@
                                       Background="White" BorderBrush="#e2e8f0" BorderThickness="1">
                                 <DataGrid.Resources>
                                     <Style TargetType="DataGridColumnHeader">
-                                        <Setter Property="Background" Value="#e0f2fe"/>
-                                        <Setter Property="Foreground" Value="#0284c7"/>
+                                        <Setter Property="Background" Value="#F4F4F5"/>
+                                        <Setter Property="Foreground" Value="#27272A"/>
                                         <Setter Property="Padding" Value="10,8"/>
                                         <Setter Property="FontWeight" Value="SemiBold"/>
                                         <Setter Property="BorderThickness" Value="0,0,0,1"/>
@@ -462,10 +482,10 @@
                                     <Style TargetType="DataGridRow">
                                         <Style.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="#f0f9ff"/>
+                                                <Setter Property="Background" Value="#FAFAFA"/>
                                             </Trigger>
                                             <Trigger Property="IsSelected" Value="True">
-                                                <Setter Property="Background" Value="#e0f2fe"/>
+                                                <Setter Property="Background" Value="#F4F4F5"/>
                                                 <Setter Property="Foreground" Value="#0f172a"/>
                                             </Trigger>
                                         </Style.Triggers>
@@ -512,3 +532,4 @@
         </ScrollViewer>
     </DockPanel>
 </Window>
+

@@ -18,4 +18,8 @@
     <Resource Include="Resources\MapaVentos.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="supabase-csharp" Version="0.16.2" />
+  </ItemGroup>
+
 </Project>

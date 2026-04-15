@@ -12,7 +12,9 @@ using System.Threading;
 using System.Windows.Markup;
 using System.Text.Json;
 using System.IO;
+using System.Threading.Tasks;
 using Microsoft.Win32;
+using Supabase;
 
 namespace CirclePointDistributor
 {
@@ -51,6 +53,9 @@ namespace CirclePointDistributor
 
         // File Management
         private string? _currentFilePath = null;
+        
+        // Supabase Client
+        private Supabase.Client _supabase;
 
         public class ProjectData
         {
@@ -85,6 +90,12 @@ namespace CirclePointDistributor
 
             InitializeComponent();
             UpdateTitle();
+            
+            // Initialize Supabase Client
+            var url = "https://olyotekmyvsowrgzmhvv.supabase.co";
+            var key = "sb_publishable_iujnG-Ax5EYGLX67tzFlgA_TVZF8P2w";
+            var options = new Supabase.SupabaseOptions { AutoConnectRealtime = false };
+            _supabase = new Supabase.Client(url, key, options);
 
             string processedPath = initialFilePath?.Trim('\"');
             if (!string.IsNullOrEmpty(processedPath) && File.Exists(processedPath))
@@ -287,6 +298,38 @@ namespace CirclePointDistributor
 
         // --- Navigation ---
 
+        private async void LoginBtn_Click(object sender, RoutedEventArgs e)
+        {
+            LoginBtn.IsEnabled = false;
+            LoginErrorText.Visibility = Visibility.Collapsed;
+            
+            try 
+            {
+                await _supabase.InitializeAsync();
+                var session = await _supabase.Auth.SignIn(LoginEmailInput.Text, LoginPasswordInput.Password);
+                
+                if (session != null && session.User != null)
+                {
+                    LoginView.Visibility = Visibility.Collapsed;
+                    WelcomeView.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    LoginErrorText.Text = "Credenciais inválidas.";
+                    LoginErrorText.Visibility = Visibility.Visible;
+                }
+            }
+            catch (Exception)
+            {
+                LoginErrorText.Text = "Erro: e-mail ou senha incorretos, ou sem conexão.";
+                LoginErrorText.Visibility = Visibility.Visible;
+            }
+            finally 
+            {
+                LoginBtn.IsEnabled = true;
+            }
+        }
+
         private void StartBtn_Click(object sender, RoutedEventArgs e)
         {
             WelcomeView.Visibility = Visibility.Collapsed;
@@ -383,7 +426,7 @@ namespace CirclePointDistributor
             { 
                 Text = $"Camada {layerIndex}", 
                 FontWeight = FontWeights.Bold,
-                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0284c7")),
+                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#27272A")),
                 Margin = new Thickness(0, 0, 0, 5)
             };
             
